@@ -1,5 +1,6 @@
 const { LineBot } = require('bottender');
 const { createServer } = require('bottender/express');
+const handler = require('./handlers/handler.js');
 
 const config = require('./bottender.config.js').line;
 
@@ -8,9 +9,7 @@ const bot = new LineBot({
   channelSecret: config.channelSecret,
 });
 
-bot.onEvent(async context => {
-  await context.sendText('Hello World');
-});
+bot.onEvent(handler);
 
 const server = createServer(bot);
 
