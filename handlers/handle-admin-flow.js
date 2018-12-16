@@ -1,4 +1,5 @@
 const { LineHandler } = require('bottender');
+const botAdmin = require('../lib/bot-logic/bot-admin');
 
 //TODO 實作各種功能判斷以及回應
 
@@ -20,8 +21,13 @@ const handleGetShipping = context => {
   context.replyText('You click QueryOrders');
 };
 
+//例外處理
+const handleUncaughtEvent = context => {
+  console.log('Uncaught event:', context.event.rawEvent);
+};
+
 module.exports = new LineHandler()
   .on(isGetOrders, handleGetOrders)
   .on(isGetShipping, handleGetShipping)
-  .onEvent(context => console.log('Uncaught event:', context.event.rawEvent))
+  .onEvent(handleUncaughtEvent)
   .build();
